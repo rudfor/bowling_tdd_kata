@@ -21,7 +21,7 @@ class Game:
     def update_score(self):
         for i in self.score_array[:-1]:
             pass
-        
+
 
     def score(self):
         return int(self.score)

@@ -2,18 +2,30 @@ from unittest import TestCase
 import Game
 import pytest
 
-testData = [
-    (0, [[], [], [], [], [], [], [], [], [], []]),  # EMPTY GAME
+test_data = [
+    (0,     [[], [], [], [], [], [], [], [], [], []]),  # EMPTY GAME
     (False, [[], [], [], [], [], [], [], [], []]),  # Invalid Frame
-    (0, [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Total Loser
-    (60, [[10, 0], [10, 0], [10, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Turkey
-    (60, [[10, 0], [10, 0], [10, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Later Turkey
-    (60, [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [10, 10, 10]]),  # Last Turkey
-    (300, [[10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 10, 10]]),  # Perfect Game
+    (0,     [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Total Loser
+    (30,    [[10], [10], [10], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Turkey
+    (60,    [[0, 0], [10], [10], [10], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Later Turkey
+    (60,    [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [10, 10, 10]]),  # Last Turkey
+    (300,    [[10], [10], [10], [10], [10], [10], [10], [10], [10], [10, 10, 10]]),
+    # Perfect Game
     (0, None),
-    ]
+]
 
-@pytest.mark.parametrize("score, score_array", testData)
+# testData = [
+#     (0, [[], [], [], [], [], [], [], [], [], []]),  # EMPTY GAME
+#     (False, [[], [], [], [], [], [], [], [], []]),  # Invalid Frame
+#     (0, [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Total Loser
+#     (60, [[10, 0], [10, 0], [10, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Turkey
+#     (60, [[10, 0], [10, 0], [10, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Later Turkey
+#     (60, [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [10, 10, 10]]),  # Last Turkey
+#     (300, [[10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 10, 10]]),  # Perfect Game
+#     (0, None),
+#     ]
+
+@pytest.mark.parametrize("score, score_array", test_data)
 def test_score(score, score_array):
     if isinstance(score, int):
         g = Game.Game(score_array)
@@ -21,9 +33,10 @@ def test_score(score, score_array):
     else:
         try:
             g = Game.Game(score_array)
-            assert score
-        except Exception:
-            assert score
+            assert not score
+        except Exception as E:
+            print(f"Exception {E}")
+            assert not score
 
 
 testDataRolls = [

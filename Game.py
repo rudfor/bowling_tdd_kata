@@ -47,32 +47,28 @@ class Game:
             return sum(frame_data) == 10
 
     def get_frame_score(self, frame=0, depth=2):
+        frame_score = sum(self.score_array[frame])
         if depth == 0:
             return 0
-        frame_score = sum(self.score_array[frame])
-        if Game.is_empty(frame_data=self.score_array[frame]):
+        elif Game.is_empty(frame_data=self.score_array[frame]):
             return frame_score
         elif Game.is_gutter(frame, frame_data=self.score_array[frame]):
             return frame_score
         elif Game.is_strike(frame, frame_data=self.score_array[frame]):
-            next_score = self.get_frame_score(frame + 1, depth - 1)
-            if next_score == 0:
-                return 0
-            else:
-                frame_score += next_score
-                if len(self.score_array[frame+1]) == 1:
-                    if len(self.score_array[frame+2]) != 0:
-                        frame_score += self.score_array[frame + 2][0]
-                else:
-                    frame_score += sum(self.score_array[frame + 1])
+            frame_score += sum(self.score_array[frame + 1])
+            if len(self.score_array[frame+1]) == 1:
+                if len(self.score_array[frame+2]) != 0:
+                    frame_score += self.score_array[frame + 2][0]
 
         elif Game.is_spare(frame, frame_data=self.score_array[frame]):
             frame_score += sum(self.score_array[frame + 1])
             if len(self.score_array[frame+1]) != 0:
                 frame_score += self.score_array[frame + 1][0]
+
         return frame_score
 
     def roll(self, pins: int):
+
         self.score_array[self.frame] = pins
 
     def update_score(self):

@@ -2,12 +2,12 @@ import Game
 import pytest
 
 test_is_empty = [
-    (True, []),  # EMPTY FRAME
-    (False, [0]),  # Single GUTTERBALL
-    (False, [0, 0]),  # Double GUTTERBALL
-    (False, [10]),  # Strike
-    (False, [5, 5]),  # Spare
-    (True, None),  # Spare
+    (True, []),         # EMPTY FRAME
+    (False, [0]),       # Single GUTTERBALL
+    (False, [0, 0]),    # Double GUTTERBALL
+    (False, [10]),      # Strike
+    (False, [5, 5]),    # Spare
+    (True, None),       # Spare
 ]
 
 
@@ -64,10 +64,11 @@ def test_is_spare(true_false, frame_data):
 test_data_score = [
     (0,     0,  [[], [], [], [], [], [], [], [], [], []]),  # EMPTY GAME
     (0,     0,  [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Total Loser
+    (20,    0,  [[10], [9, 1], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Turkey
     (30,    0,  [[10], [10], [10], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Turkey
     (30,    1,  [[0, 0], [10], [10], [10], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Later Turkey
     (30,    10, [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [10, 10, 10]]),  # Last Turkey
-    (60,    5,  [[10], [10], [10], [10], [10], [10], [10], [10], [10], [10, 10, 10]]),
+    (30,    5,  [[10], [10], [10], [10], [10], [10], [10], [10], [10], [10, 10, 10]]),
     # Perfect Game
     (0, 0, None),
 ]

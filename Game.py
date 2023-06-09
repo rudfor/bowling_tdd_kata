@@ -29,11 +29,16 @@ class Game:
         if len(self.score_array) != 10:
             raise ValueError(f'Invalid Frame length: {len(score_array)}')
             exit(66)
-        for i in self.score_array[:-1]:
-            if self.score_array[i]
-        #
-        #     score += self.get_frame_score(frame)
-
+        else:
+            for i in self.score_array[:-1]:
+                # print(f"Score_array element: {i}")
+                if len(i) >= 1 and sum(i) > 10:
+                    raise ValueError(f'Incorrect Frame score {sum(i)}')
+                    exit(71)
+            last_frame = self.score_array[-1]
+            if len(last_frame) > 2 and sum(last_frame[0, 1]) > 10:
+                print(f"{last_frame}")
+                raise ValueError(f'Incorrect Frame 10 score {sum(last_frame)}')
 
     @staticmethod
     def is_empty(frame_data=[]):

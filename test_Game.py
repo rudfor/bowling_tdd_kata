@@ -61,7 +61,36 @@ def test_is_spare(true_false, frame_data):
     assert Game.Game.is_spare(frame_data=frame_data) == true_false
 
 
-test_data_score = [
+test_data = [
+    (0,     [[], [], [], [], [], [], [], [], [], []], ""),  # EMPTY GAME
+    (False, [[], [], [], [], [], [], [], [], []], "Invalid Frame length: 9"),  # Invalid Frame
+    (0,     [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], ""),  # Total Loser
+    (60,    [[10], [10], [10], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], ""),  # Turkey
+    (60,    [[0, 0], [10], [10], [10], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], ""),  # Later Turkey
+    (30,    [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [10, 10, 10]], ""),  # Last Turkey
+    (300,    [[10], [10], [10], [10], [10], [10], [10], [10], [10], [10, 10, 10]], ""),
+    # Perfect Game
+    (0, None, ""),
+]
+
+
+@pytest.mark.parametrize("score, score_array, expected", test_data)
+def test_score(score, score_array, expected):
+    if type(score) is int:
+        g = Game.Game(score_array)
+        assert (g.score == score)
+    else:
+        with pytest.raises(ValueError, match=expected):
+            g = Game.Game(score_array)
+        # try:
+        #     g = Game.Game(score_array)
+        #     assert not score
+        # except Exception as E:
+        #     print(f"Exception {E}")
+        #     assert not score
+
+
+test_frame_score = [
     (0,     0,  [[], [], [], [], [], [], [], [], [], []]),  # EMPTY GAME
     (0,     0,  [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Total Loser
     (20,    0,  [[10], [9, 1], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]),  # Turkey
@@ -74,7 +103,7 @@ test_data_score = [
 ]
 
 
-@pytest.mark.parametrize("score, frame, frame_data", test_data_score)
+@pytest.mark.parametrize("score, frame, frame_data", test_frame_score)
 def test_get_frame_score(score, frame, frame_data):
     g = Game.Game(frame_data)
     assert g.get_frame_score(frame) == score
@@ -85,10 +114,6 @@ def test_roll():
 
 
 def test_update_score():
-    assert False
-
-
-def test_score():
     assert False
 
 

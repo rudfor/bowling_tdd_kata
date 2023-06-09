@@ -1,19 +1,39 @@
+"""
+Kata TDD example exploration for Bowling Scoring Example
+"""
+
+
 class Game:
     """
-    [2][2][2][2][2][2][2][2][2][2][2][3]
+    Game Class
     """
-
     def __init__(self, score_array=None):
+        """
+        Initialization possible with provision of a bowling set of frames
+        Defaulted to None also when provided with None explicitly
+        :param score_array:
+        """
         self.score = int(0)
         self.frame = 0
-        self.score_array = score_array
-        if (score_array == None):
-            self.score_array = [[], [], [], [], [], [], [], [], [], []]
-        elif (len(self.score_array) != 10):
-            print(f"Incorrect frame Initialized")
-            raise ValueError('Invalid Frame')
-            exit(66)
+        self.score_array = []
+        self.initiate_frames(score_array)
         self.update_score()
+
+    def initiate_frames(self, score_array):
+        if score_array is None:
+            self.score_array = [[], [], [], [], [], [], [], [], [], []]
+        else:
+            self.score_array = score_array
+
+        return_value = True
+        if len(self.score_array) != 10:
+            raise ValueError(f'Invalid Frame length: {len(score_array)}')
+            exit(66)
+        for i in self.score_array[:-1]:
+            if self.score_array[i]
+        #
+        #     score += self.get_frame_score(frame)
+
 
     @staticmethod
     def is_empty(frame_data=[]):

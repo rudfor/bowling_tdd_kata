@@ -17,12 +17,12 @@ def test_is_empty(true_false, frame_data):
 
 
 test_is_gutter = [
-    (True, []),  # EMPTY FRAME
-    (True, [0]),  # Single GUTTERBALL
-    (True, [0, 0]),  # Double GUTTERBALL
-    (False, [10]),  # Strike
-    (False, [5, 5]),  # Spare
-    (True, None),  # Spare
+    (True, []),         # EMPTY FRAME
+    (True, [0]),        # Single GUTTERBALL
+    (True, [0, 0]),     # Double GUTTERBALL
+    (False, [10]),      # Strike
+    (False, [5, 5]),    # Spare
+    (True, None),       # Spare
 ]
 
 
@@ -32,12 +32,12 @@ def test_is_gutter(true_false, frame_data):
 
 
 test_is_strike = [
-    (False, []),  # EMPTY FRAME
-    (False, [0]),  # Single GUTTERBALL
-    (False, [0, 0]),  # Double GUTTERBALL
-    (True, [10]),  # Strike
-    (False, [5, 5]),  # Spare
-    (False, None),  # Spare
+    (False, []),        # EMPTY FRAME
+    (False, [0]),       # Single GUTTERBALL
+    (False, [0, 0]),    # Double GUTTERBALL
+    (True, [10]),       # Strike
+    (False, [5, 5]),    # Spare
+    (False, None),      # Spare
 ]
 
 
@@ -47,12 +47,12 @@ def test_is_strike(true_false, frame_data):
 
 
 test_is_spare = [
-    (False, []),  # EMPTY FRAME
-    (False, [0]),  # Single GUTTERBALL
-    (False, [0, 0]),  # Double GUTTERBALL
-    (False, [10]),  # Strike
-    (True, [5, 5]),  # Spare
-    (False, None),  # Spare
+    (False, []),        # EMPTY FRAME
+    (False, [0]),       # Single GUTTERBALL
+    (False, [0, 0]),    # Double GUTTERBALL
+    (False, [10]),      # Strike
+    (True, [5, 5]),     # Spare
+    (False, None),      # Spare
 ]
 
 

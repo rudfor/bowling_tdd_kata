@@ -15,8 +15,13 @@ if __name__ == '__main__':
     print_hi('PyCharm')
     g = Game.Game()
     g.print()
+    g.print_score()
     g2 = Game.Game([[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [10, 10, 10]])
     g2.print()
+    g2.print_score()
+    g2 = Game.Game([[10], [10], [5, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]])
+    g2.print()
+    g2.print_score()
     assert (g.score == 0)
 
 

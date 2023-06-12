@@ -36,7 +36,7 @@ class Game:
                     raise ValueError(f'Incorrect Frame score {sum(i)}')
                     exit(71)
             last_frame = self.score_array[-1]
-            if len(last_frame) > 2 and sum(last_frame[0, 1]) > 10:
+            if len(last_frame) > 2 and sum(last_frame[:2]) < 10:
                 print(f"{last_frame}")
                 raise ValueError(f'Incorrect Frame 10 score {sum(last_frame)}')
 
@@ -52,15 +52,14 @@ class Game:
     def is_gutter(frame=0, frame_data=[]):
         if Game.is_empty(frame_data):
             frame_data = []
-        if frame < 9:
-            return sum(frame_data) == 0
+        return sum(frame_data) == 0
 
     @staticmethod
     def is_strike(frame=0, frame_data=[]):
         if Game.is_empty(frame_data):
             return False
-        if frame < 9:
-            return frame_data[0] == 10
+        return frame_data[0] == 10
+
 
     @staticmethod
     def is_spare(frame=0, frame_data=[]):
@@ -68,27 +67,32 @@ class Game:
             frame_data = [0, 0]
         if Game.is_strike(frame, frame_data):
             return False
-        if frame < 9:
-            return sum(frame_data) == 10
+        return sum(frame_data[:2]) == 10
 
-    def get_frame_score(self, frame=0, depth=2):
+    def get_frame_score(self, frame=0):
         frame_score = sum(self.score_array[frame])
-        if depth == 0:
-            return 0
-        elif Game.is_empty(frame_data=self.score_array[frame]):
+        # EMPTY
+        if Game.is_empty(frame_data=self.score_array[frame]):
             return frame_score
+        # Gutter Ball
         elif Game.is_gutter(frame, frame_data=self.score_array[frame]):
             return frame_score
         elif Game.is_strike(frame, frame_data=self.score_array[frame]):
-            frame_score += sum(self.score_array[frame + 1])
-            if len(self.score_array[frame+1]) == 1:
-                if len(self.score_array[frame+2]) != 0:
-                    frame_score += self.score_array[frame + 2][0]
+            if frame == 9:
+                frame_score += sum(self.score_array[frame])
+            else:
+                frame_score += sum(self.score_array[frame + 1])
+                if len(self.score_array[frame+1]) == 1:
+                    if len(self.score_array[frame+2]) != 0:
+                        frame_score += self.score_array[frame + 2][0]
 
         elif Game.is_spare(frame, frame_data=self.score_array[frame]):
-            frame_score += sum(self.score_array[frame + 1])
-            if len(self.score_array[frame+1]) != 0:
-                frame_score += self.score_array[frame + 1][0]
+            if frame == 9:
+                pass
+            else:
+                frame_score += sum(self.score_array[frame + 1])
+                if len(self.score_array[frame+1]) != 0:
+                    frame_score += self.score_array[frame + 1][0]
 
         return frame_score
 
@@ -104,6 +108,12 @@ class Game:
             frame += 1
         self.frame = frame
         self.score = score
+
+    def print_score(self):
+        score_list = []
+        for i in range(0, 10):
+            score_list.append(self.get_frame_score(i))
+        print(f"score_list {score_list}")
 
     def score(self):
         return int(self.score)
